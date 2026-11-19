@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JELANTARA – Jelajah Nusantara</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@500;700;800&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{--bg:#fff6e0;--ink:#3a2418;--card:#fff;--line:#3a2418;--red:#d6402b;--teal:#12908a;--gold:#f5b324;--tile:#fffdf6;--mut:#7a5b48;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2a1b14;--ink:#fff1d8;--card:#3d2a1f;--line:#f1d9a8;--tile:#4a3326;--mut:#d1b497}}
+:root[data-theme="dark"]{--bg:#2a1b14;--ink:#fff1d8;--card:#3d2a1f;--line:#f1d9a8;--tile:#4a3326;--mut:#d1b497}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;font-weight:700;min-height:100vh}
+h1,h2,h3,.f{font-family:"Baloo 2",system-ui,sans-serif;margin:0}
+.wrap{max-width:560px;margin:0 auto;padding:12px}
+.btn{font:800 16px "Baloo 2",system-ui,sans-serif;border:3px solid var(--line);background:var(--gold);color:#3a2418;border-radius:14px;padding:8px 16px;cursor:pointer;box-shadow:0 4px 0 var(--line)}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.btn.r{background:var(--red);color:#fff}.btn.t{background:var(--teal);color:#fff}.btn.w{background:var(--card);color:var(--ink)}
+.hero{text-align:center;padding:18px 8px}
+.hero h1{font-size:clamp(46px,16vw,84px);font-weight:800;line-height:.95;color:var(--red);letter-spacing:2px;text-shadow:3px 3px 0 var(--gold)}
+.badge{display:inline-block;background:var(--teal);color:#fff;border-radius:99px;padding:3px 14px;font-size:13px;margin-bottom:10px}
+.sub{color:var(--mut);margin:10px auto 0;max-width:400px;line-height:1.35}
+.panel{background:var(--card);border:3px solid var(--line);border-radius:18px;padding:12px;margin:12px 0}
+.row{display:flex;gap:8px;align-items:center;margin:6px 0}
+.row input[type=text]{flex:1;min-width:0;font:700 16px Nunito,sans-serif;padding:8px 10px;border:2px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+.row input[type=color]{width:44px;height:40px;border:2px solid var(--line);border-radius:10px;padding:0;background:none}
+.acts{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:10px 0}
+.board{display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:repeat(7,1fr);gap:3px;aspect-ratio:1;background:var(--line);border:3px solid var(--line);border-radius:14px;padding:3px}
+.tile{background:var(--tile);border-radius:7px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;min-width:0;border-bottom:4px solid var(--tc,#ccc)}
+.tile .n{position:absolute;top:1px;left:3px;font-size:9px;color:var(--mut)}
+.tile .e{font-size:clamp(16px,5.4vw,28px);line-height:1}
+.tile .l{font-size:clamp(6px,1.9vw,10px);line-height:1;margin-top:2px;color:var(--ink)}
+.pw{position:absolute;bottom:1px;right:1px;left:1px;display:flex;flex-wrap:wrap;justify-content:center;gap:1px}
+.pw i{width:clamp(8px,2.6vw,13px);height:clamp(8px,2.6vw,13px);border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #000}
+.mid{grid-area:2/2/7/7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;background:var(--card);border-radius:10px;padding:6px}
+.mid h2{font-size:clamp(18px,6vw,30px);color:var(--red);line-height:1}
+.dice{width:64px;height:64px;border-radius:14px;border:3px solid var(--line);background:#fff;color:#3a2418;display:grid;place-items:center;font-size:40px;font-family:"Baloo 2";font-weight:800}
+.dice.go{animation:sh .25s infinite}@keyframes sh{50%{transform:rotate(14deg) scale(1.08)}}
+@media(prefers-reduced-motion:reduce){.dice.go{animation:none}}
+.turn{font-size:15px}.turn b{padding:1px 10px;border-radius:99px;color:#fff}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:5px 3px;text-align:center;border-bottom:2px solid var(--bg)}th{font-family:"Baloo 2";color:var(--mut)}td:first-child,th:first-child{text-align:left}
+.ov{position:fixed;inset:0;background:rgba(30,15,8,.7);display:flex;align-items:center;justify-content:center;padding:14px;z-index:20;overflow:auto}
+.mc{background:var(--card);border:4px solid var(--line);border-radius:22px;max-width:440px;width:100%;max-height:92vh;overflow:auto;padding:16px;position:relative}
+.mc .big{font-size:52px;text-align:center;line-height:1}.mc h2{text-align:center;font-size:26px;margin:4px 0}
+.tag{display:block;width:max-content;margin:0 auto 8px;background:var(--teal);color:#fff;border-radius:99px;padding:2px 12px;font-size:13px}
+.mc p{line-height:1.45;margin:8px 0}
+.opt{display:block;width:100%;text-align:left;margin:6px 0;padding:10px 12px;border:3px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:700 16px Nunito,sans-serif;cursor:pointer}
+.opt.ok{background:#2fa84f;color:#fff}.opt.no{background:var(--red);color:#fff}
+.qr{display:flex;gap:10px;align-items:center;margin-top:10px;padding:8px;border:2px dashed var(--line);border-radius:12px}
+.qr div.q{background:#fff;padding:4px;border-radius:6px;line-height:0}.qr span{font-size:12px;font-family:"Baloo 2";color:var(--mut)}
+select,.mc input[type=text]{font:700 15px Nunito;padding:6px;border:2px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);max-width:100%}
+.pair{display:flex;gap:6px;align-items:center;margin:8px 0;justify-content:space-between}
+.fb{text-align:center;font-family:"Baloo 2";font-size:18px;margin:8px 0}
+.rank{display:flex;gap:10px;align-items:center;padding:8px;border:3px solid var(--line);border-radius:12px;margin:6px 0}
+.rank .f{font-size:26px;width:36px}
+</style></head><body><div class="wrap" id="app"></div>
+<script>
+var $=function(s){return document.querySelector(s)};
+var PAL=["#d6402b","#12908a","#f5b324","#7b4fc7"],NAMES=["Garuda","Cendrawasih","Komodo","Batik"];
+var TC={s:"#12908a",m:"#f5b324",q:"#d6402b",c:"#7b4fc7",b:"#2fa84f",j:"#555",p:"#e0701f",f:"#12908a"};
+var T=[null,
+["s","🚩","START","Titik awal semua kelompok. Selamat berpetualang!"],
+["m","🏠","Rumah Gadang","Rumah adat masyarakat Minangkabau di Sumatera Barat. Ciri khas: atap melengkung tajam seperti tanduk kerbau (Gonjong). Fungsi: tempat musyawarah keluarga dan upacara adat. Keunikan: dibuat dari kayu tanpa paku besi sehingga tahan gempa."],
+["q","❓","QUIZ Suku","Masyarakat Suku Minangkabau secara turun-temurun berasal dari wilayah provinsi mana?",["A. Sumatera Barat","B. Jawa Tengah","C. Bali","D. Papua"],0],
+["m","👘","Baju Bodo","Pakaian adat perempuan Suku Bugis-Makassar dari Sulawesi Selatan. Ciri khas: berbentuk segi empat dengan lengan pendek, berbahan kain musalin yang ringan, dan warnanya melambangkan usia atau status pemakainya."],
+["c","🎯","Tantangan","Tugas Kelompok: Sebutkan 3 nama tarian daerah beserta provinsi asalnya dalam waktu 30 detik!"],
+["m","💃","Tari Saman","Tarian tradisional Suku Gayo dari Provinsi Aceh. Ciri khas: dimainkan secara berbanjar dengan gerakan tepuk tangan dan dada yang kompak serta cepat. Diakui UNESCO sebagai Warisan Budaya Takbenda Dunia."],
+["m","🍛","Rendang","Kuliner khas Minangkabau, Sumatera Barat. Olahan daging dengan santan dan rempah-rempah khas Nusantara yang dimasak dalam waktu lama hingga bumbu meresap dan berwarna gelap. Terpilih sebagai salah satu makanan terlezat di dunia."],
+["q","🛖","QUIZ Joglo","Rumah adat Joglo yang memiliki empat tiang penyangga utama (soko guru) berasal dari daerah mana?",["A. Kalimantan Barat","B. Jawa Tengah & DIY","C. Sulawesi Utara","D. Maluku"],1],
+["b","🎁","BONUS +20","Selamat! Kelompok langsung mendapatkan +20 Poin gratis tanpa harus menjawab soal."],
+["m","🌳","Suku Dayak","Suku asli yang mendiami pulau Kalimantan. Ciri khas: sangat menjunjung tinggi kelestarian hutan dan sungai, memiliki seni ukir perisai, serta tradisi upacara adat Tiwah dan Gawai Dayak."],
+["q","🕵️","Tebak Budaya","Petunjuk: “Aku adalah senjata tradisional dari Jawa yang berbentuk bilah berkelok-kelok (luk) dan merupakan warisan budaya dunia.” Apakah aku?",["A. Rencong","B. Mandau","C. Keris","D. Badik"],2],
+["m","🎨","Batik","Karya seni melukis di atas kain menggunakan malam (lilin panas) dan canting. Memiliki ragam motif unik dari berbagai daerah di Indonesia dan diperingati sebagai Hari Batik Nasional setiap tanggal 2 Oktober."],
+["j","🔒","PENJARA","Kelompok yang berhenti di sini harus melewati 1 kali giliran melempar dadu. Tidak ada pertanyaan atau pengurangan poin."],
+["m","🛶","Tongkonan","Rumah adat Suku Toraja di Sulawesi Selatan. Ciri khas: rumah panggung dari kayu dengan atap melengkung menyerupai perahu dan dihiasi tanduk kerbau di bagian depan."],
+["q","👔","QUIZ Pakaian","Pakaian adat pria dari Provinsi Bali yang dilengkapi ikat kepala (udeng) dan kain penutup pinggang (saput) disebut...",["A. Ulos","B. Payas Agung","C. Beskap","D. Koteka"],1],
+["m","🎶","Angklung","Alat musik tradisional khas Sunda, Jawa Barat yang terbuat dari tabung-tabung bambu. Cara memainkannya dengan digoyangkan sehingga menghasilkan nada yang harmonis."],
+["c","🎤","Tantangan","Tugas Kelompok: Nyanyikan bersama-sama minimal 4 baris lagu daerah dari provinsi mana saja di Indonesia!"],
+["m","🗿","Suku Asmat","Suku asli dari wilayah Papua Selatan. Sangat terkenal di seluruh dunia karena keahlian seni memahat dan mengukir kayu yang bernilai tinggi, serta alat musik Tifa."],
+["m","🥣","Papeda","Makanan pokok khas masyarakat Papua dan Maluku yang terbuat dari saripati sagu. Bertekstur kental seperti lem berwarna bening dan biasanya disantap bersama ikan kuah kuning."],
+["q","🔥","QUIZ Provinsi","Tari Kecak yang ditarikan oleh puluhan penari pria yang duduk melingkar sambil menyerukan kata “cak-cak-cak” berasal dari provinsi...",["A. Nusa Tenggara Barat","B. Bali","C. Jawa Timur","D. Lampung"],1],
+["b","🍀","BONUS +20","Keberuntungan! Kelompok langsung mendapat tambahan +20 Poin gratis."],
+["m","🏘️","Rumah Betang","Rumah adat tradisional Suku Dayak di Kalimantan. Berbentuk rumah panggung memanjang yang dapat dihuni oleh puluhan keluarga secara rukun dan gotong royong."],
+["p","🧩","Pasangkan","Mini-game: Cocokkan 3 pasangan budaya dan asalnya dengan benar. Jika semua benar, kelompok mendapat +10 Poin."],
+["f","🏁","FINISH","Garis akhir! Kelompok yang mencapai petak ini mendapat +10 Poin Finisher dan permainan selesai."]];
+var PAIRS=[["Gudeg","Yogyakarta"],["Tari Piring","Sumatera Barat"],["Sasando","Nusa Tenggara Timur"]];
+var QRS={};try{QRS=JSON.parse(localStorage.getItem("jel_qr")||"{}")}catch(e){}
+function qrUrl(i){return QRS[i]||"https://www.google.com/search?q="+encodeURIComponent(T[i][2]+" budaya Indonesia untuk SD")}
+var G=null,N=4,sel=null,SON=true,AC=null,TM=null;
+function snd(f,d,ty){if(!SON)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();var o=AC.createOscillator(),g=AC.createGain();o.type=ty||"sine";o.frequency.value=f;g.gain.value=.08;o.connect(g);g.connect(AC.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.stop(AC.currentTime+d)}catch(e){}}
+function jingle(a){a.forEach(function(f,i){setTimeout(function(){snd(f,.18,"triangle")},i*130)})}
+function cell(i){if(i<=6)return[0,i];if(i<=12)return[i-6,6];if(i<=18)return[6,6-(i-12)];return[6-(i-18),0]}
+function setup(){
+ var h='<div class="hero"><span class="badge">MEDIA PEMBELAJARAN KELAS IV SD</span><h1>JELANTARA</h1><p class="sub">Petualangan Interaktif Mengenal Suku Bangsa, Rumah Adat, Pakaian, Kesenian, dan Kuliner Nusantara</p></div><div class="panel"><div class="row"><span class="f" style="font-size:20px">Jumlah kelompok</span><select id="nn"><option>3</option><option selected>4</option></select></div><div id="tl"></div></div><div class="acts"><button class="btn t" id="bR">Aturan & Cara Bermain</button><button class="btn w" id="bQ">Atur Link QR (Mode Guru)</button><button class="btn r" id="bS" style="font-size:22px">Mulai Main!</button></div>';
+ $("#app").innerHTML=h;teams();
+ $("#nn").value=N;$("#nn").onchange=function(){N=+this.value;keep();teams()};
+ $("#bR").onclick=rules;$("#bQ").onclick=teacher;$("#bS").onclick=start}
+function keep(){sel=[];document.querySelectorAll(".tn").forEach(function(e,i){sel.push({n:e.value,c:document.querySelectorAll(".tc")[i].value})})}
+function teams(){var s="";for(var i=0;i<N;i++){var d=sel&&sel[i]||{n:NAMES[i],c:PAL[i]};s+='<div class="row"><input type="text" class="tn" maxlength="14" value="'+d.n+'" aria-label="Nama kelompok '+(i+1)+'"><input type="color" class="tc" value="'+d.c+'" aria-label="Warna pion"></div>'}$("#tl").innerHTML=s}
+function modal(html){var o=document.createElement("div");o.className="ov";o.id="ov";o.innerHTML='<div class="mc">'+html+'</div>';document.body.appendChild(o);return o}
+function close(){var o=$("#ov");if(o)o.remove()}
+function rules(){modal('<h2>Aturan & Cara Bermain</h2><p>1. Kelompok bergiliran menekan Kocok Dadu, pion berjalan sesuai angka dadu.<br>2. Petak Materi: baca lalu tekan Selesai Membaca (+5). Scan QR untuk materi lengkap.<br>3. Petak Quiz: jawab benar +10, salah 0.<br>4. Petak Tantangan: guru menilai, Berhasil +10.<br>5. Petak Bonus: +20 gratis. Penjara: lewati 1 giliran. Pasangkan: semua benar +10.<br>6. Permainan berakhir saat ada kelompok mencapai atau melewati Petak 24 (Finisher +10).<br>7. Juara ditentukan oleh total poin tertinggi, bukan yang tercepat finish.</p><button class="btn" id="x" style="width:100%">Mengerti</button>');$("#x").onclick=close}
+function teacher(){var s='<h2>Mode Guru</h2><p>Ganti tautan QR tiap petak materi (Google Drive, YouTube, dll). Kosongkan untuk kembali ke tautan bawaan.</p>';[2,4,6,7,10,12,14,16,18,19,22].forEach(function(i){s+='<div class="row"><span style="width:100px;font-size:13px">'+i+'. '+T[i][2]+'</span><input type="text" class="qi" data-i="'+i+'" placeholder="https://..." value="'+(QRS[i]||"")+'"></div>'});s+='<button class="btn t" id="sv" style="width:100%;margin-top:8px">Simpan</button>';modal(s);
+ $("#sv").onclick=function(){document.querySelectorAll(".qi").forEach(function(e){var v=e.value.trim();if(v)QRS[e.dataset.i]=v;else delete QRS[e.dataset.i]});try{localStorage.setItem("jel_qr",JSON.stringify(QRS))}catch(e){}close()}}
+function start(){keep();G={t:sel.map(function(d,i){return{n:d.n.trim()||NAMES[i],c:d.c,pos:1,pts:0,bon:0,skip:false}}),cur:0,busy:false,v:"🎲"};board()}
+function tot(t){return t.pts+t.bon}
+function board(){
+ var b="";for(var i=1;i<=24;i++){var c=cell(i-1),x=T[i],p=G.t.filter(function(t){return t.pos==i}).map(function(t){return'<i style="background:'+t.c+'"></i>'}).join("");b+='<div class="tile" style="grid-area:'+(c[0]+1)+'/'+(c[1]+1)+';--tc:'+TC[x[0]]+'"><span class="n">'+i+'</span><span class="e">'+x[1]+'</span><span class="l">'+x[2]+'</span><span class="pw">'+p+'</span></div>'}
+ var t=G.t[G.cur];
+ b+='<div class="mid"><h2>JELANTARA</h2><div class="turn">Giliran: <b style="background:'+t.c+'">'+t.n+'</b></div><div class="dice" id="dc">'+G.v+'</div><button class="btn r" id="roll"'+(G.busy?' disabled':'')+'>Kocok Dadu</button><div style="font-size:12px;color:var(--mut)" id="msg"></div></div>';
+ var s='<table><tr><th>Kelompok</th><th>Petak</th><th>Poin</th><th>Bonus</th><th>Total</th></tr>';
+ G.t.forEach(function(k,i){s+='<tr style="'+(i==G.cur?'background:rgba(245,179,36,.3)':'')+'"><td><span style="color:'+k.c+'">●</span> '+k.n+'</td><td>'+k.pos+'</td><td>'+k.pts+'</td><td>'+k.bon+'</td><td><b>'+tot(k)+'</b></td></tr>'});
+ $("#app").innerHTML='<div class="board">'+b+'</div><div class="panel"><h3>Papan Skor</h3>'+s+'</table></div><div class="acts"><button class="btn w" id="bR">Aturan</button><button class="btn w" id="bV">'+(SON?"🔊 Suara":"🔇 Senyap")+'</button><button class="btn w" id="bH">Menu Awal</button></div>';
+ $("#roll").onclick=roll;$("#bR").onclick=rules;$("#bV").onclick=function(){SON=!SON;board()};$("#bH").onclick=function(){if(confirm("Kembali ke menu awal? Permainan akan diulang."))setup()}}
+function say(m){var e=$("#msg");if(e)e.textContent=m}
+function next(){G.cur=(G.cur+1)%G.t.length;G.busy=false;board()}
+function roll(){
+ if(G.busy)return;var t=G.t[G.cur];
+ if(t.skip){t.skip=false;G.busy=true;say(t.n+" melewati giliran (Penjara)");setTimeout(next,1400);return}
+ G.busy=true;$("#roll").disabled=true;$("#dc").classList.add("go");var k=0,F=["⚀","⚁","⚂","⚃","⚄","⚅"],v;
+ var iv=setInterval(function(){v=1+Math.floor(Math.random()*6);$("#dc").textContent=v;snd(300+v*60,.05,"square");if(++k>11){clearInterval(iv);$("#dc").classList.remove("go");G.v=v;say("Dadu: "+v+" langkah");move(t,v)}},80)}
+function move(t,v){var iv=setInterval(function(){t.pos++;v--;snd(520,.06);board();say("Dadu: "+(v+1)+" → melangkah");G.busy=true;$("#roll").disabled=true;if(v<=0||t.pos>=24){clearInterval(iv);setTimeout(function(){land(t)},350)}},300)}
+function done(t,pts,bon){t.pts+=pts;t.bon+=bon||0;close();next()}
+function land(t){
+ var x=T[t.pos],ty=x[0],h='<div class="big">'+x[1]+'</div><h2>'+x[2]+'</h2><span class="tag">Petak '+t.pos+' · '+t.n+'</span>';
+ if(t.pos>=24){t.pos=24;t.bon+=10;board();jingle([523,659,784,1047,1319]);modal(h+'<p>'+t.n+' mencapai FINISH dan mendapat Bonus Finisher +10 Poin!</p><button class="btn t" id="ok" style="width:100%">Lihat Peringkat</button>');$("#ok").onclick=function(){close();end()};return}
+ if(ty=="s"){return next()}
+ if(ty=="m"){h+='<p>'+x[3]+'</p><div class="qr"><div class="q" id="qc"></div><span>SCAN QR UNTUK MATERI LENGKAP</span></div><button class="btn t" id="ok" style="width:100%;margin-top:10px">Selesai Membaca +5 Poin</button>';modal(h);
+  try{new QRCode($("#qc"),{text:qrUrl(t.pos),width:84,height:84})}catch(e){$("#qc").textContent="QR"}
+  $("#ok").onclick=function(){done(t,5)}}
+ else if(ty=="q"){h+='<p>'+x[3]+'</p>'+x[4].map(function(o,i){return'<button class="opt" data-i="'+i+'">'+o+'</button>'}).join("")+'<div id="fb"></div>';modal(h);
+  document.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){var a=+b.dataset.i,ok=a==x[5];document.querySelectorAll(".opt").forEach(function(o){o.disabled=true;if(+o.dataset.i==x[5])o.classList.add("ok")});if(!ok)b.classList.add("no");if(ok)jingle([523,659,784]);else snd(180,.35,"sawtooth");$("#fb").innerHTML='<div class="fb">'+(ok?"Benar! +10 Poin 🎉":"Belum tepat, 0 Poin")+'</div><button class="btn" id="ok" style="width:100%">Lanjut</button>';$("#ok").onclick=function(){done(t,ok?10:0)}}})}
+ else if(ty=="c"){h+='<p>'+x[3]+'</p>'+(t.pos==5?'<div class="fb" id="tm" style="font-size:44px">30</div><button class="btn" id="go" style="width:100%">Mulai 30 Detik</button>':'')+'<p style="color:var(--mut);font-size:14px">Guru menilai hasil kelompok:</p><div class="acts"><button class="btn t" id="y">Berhasil +10 Poin</button><button class="btn r" id="n">Gagal 0 Poin</button></div>';modal(h);$("#y").onclick=function(){clearInterval(TM);done(t,10)};$("#n").onclick=function(){clearInterval(TM);done(t,0)};
+ if(t.pos==5){$("#go").onclick=function(){var s=30;this.disabled=true;clearInterval(TM);TM=setInterval(function(){s--;var e=$("#tm");if(!e){clearInterval(TM);return}e.textContent=s;if(s<=5&&s>0)snd(700,.1);if(s<=0){clearInterval(TM);e.textContent="Waktu habis!";jingle([400,300,200])}},1000)}}}
+ else if(ty=="b"){h+='<p>'+x[3]+'</p><button class="btn t" id="ok" style="width:100%">Ambil +20 Poin</button>';modal(h);jingle([523,659,784,1047]);$("#ok").onclick=function(){done(t,0,20)}}
+ else if(ty=="j"){t.skip=true;h+='<p>'+x[3]+'</p><button class="btn" id="ok" style="width:100%">Mengerti</button>';modal(h);$("#ok").onclick=function(){done(t,0)}}
+ else if(ty=="p"){var op='<option value="">Pilih asal...</option>'+PAIRS.map(function(p){return'<option>'+p[1]+'</option>'}).sort().join("");h+='<p>'+x[3]+'</p>'+PAIRS.map(function(p,i){return'<div class="pair"><span>'+p[0]+' →</span><select class="ps">'+op+'</select></div>'}).join("")+'<div id="fb"></div><button class="btn t" id="ok" style="width:100%">Periksa Jawaban</button>';modal(h);
+  $("#ok").onclick=function(){var s=document.querySelectorAll(".ps"),all=true,n=0;s.forEach(function(e,i){if(e.value!=PAIRS[i][1])all=false;else n++});
+  if(all){s.forEach(function(e){e.disabled=true});jingle([523,659,784]);$("#fb").innerHTML='<div class="fb">Semua benar! +10 Poin 🎉</div>';var b=$("#ok");b.textContent="Lanjut";b.onclick=function(){done(t,10)};return}
+  snd(180,.35,"sawtooth");$("#fb").innerHTML='<div class="fb">Baru '+n+' dari 3 benar. Coba lagi!</div><button class="btn w" id="sk" style="width:100%;margin-bottom:8px">Menyerah (0 Poin)</button>';$("#sk").onclick=function(){done(t,0)}}}
+}
+function end(){
+ var r=G.t.slice().sort(function(a,b){return tot(b)-tot(a)}),m=["🥇","🥈","🥉","4"];
+ $("#app").innerHTML='<div class="hero"><div style="font-size:64px">🏆</div><h1 style="font-size:clamp(34px,11vw,56px)">Juara: '+r[0].n+'!</h1><p class="sub">Juara ditentukan dari total poin tertinggi.</p></div>'+r.map(function(k,i){return'<div class="rank" style="border-color:'+k.c+'"><span class="f">'+m[i]+'</span><div style="flex:1"><div class="f" style="font-size:20px">'+k.n+'</div><div style="font-size:13px;color:var(--mut)">Petak '+k.pos+' · Poin '+k.pts+' · Bonus '+k.bon+'</div></div><div class="f" style="font-size:28px">'+tot(k)+'</div></div>'}).join("")+'<div class="acts"><button class="btn r" id="a">Main Lagi</button></div>';
+ $("#a").onclick=setup}
+setup();
+</script></body></html>
